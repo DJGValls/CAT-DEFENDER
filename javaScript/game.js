@@ -30,7 +30,7 @@ gameLoop = ()=>{
 
     //draw
     this.drawBg();
-    this.ship.drawShip();
+    this.ship.drawShipCat();
 
 
     //recursion

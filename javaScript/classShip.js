@@ -12,16 +12,14 @@ class Ship {
         this.imageShip = new Image();
         this.imageShip.src = "./images/ship.png"
         //cat
-        this.xCat = 50;
-        this.yCat= 50;
-        this.hCat= 90;
-        this.wCat= 50;
+        this.xCat = 60;
+        this.yCat= 60;
+        this.hCat= 30;
+        this.wCat= 30;
         this.speedCat = 2;
         this.imageCat = new Image();
         this.imageCat.src = "./images/cat.png"
     }
-
-    
 
     drawShip = ()=>{
         ctx.drawImage(this.imageShip, this.xShip, this.yShip, this.wShip, this.hShip);
@@ -30,6 +28,13 @@ class Ship {
     drawCat = ()=>{
         ctx.drawImage(this.imageCat, this.xCat, this.yCat, this.wCat, this.hCat)
     }
+
+    drawShipCat = ()=>{
+        this.drawShip();
+        this.drawCat();
+    }
+
+    
 
 
 }
