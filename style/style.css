@@ -1,18 +1,19 @@
 body {
     margin: 0;
-    background-color: lightgray;
+    background-color: lightblue;
   }
   
   #my-canvas {
-    background-color: darkgray;
+    background-color: lightblue;
   }
   
-  #start-btn, #restart-btn {
-    background-color: green;
+  #play-button, #restart-button {
+    background-color: red;
+    font-family: 'Courier New', Courier, monospace;
     color: white;
-    padding: 20px;
+    padding: 80px;
     font-size: 20px;
-    margin-top: 40px;
+    margin-top: 10px;
     border-radius: 10px; 
   }
   
