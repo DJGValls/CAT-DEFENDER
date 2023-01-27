@@ -41,6 +41,7 @@ class Ship {
     moveDownShip = ()=>{
         this.yShip = this.yShip + this.speedShip; 
         this.yCat = this.yCat + this.speedCat;
+        
     }
 
 
