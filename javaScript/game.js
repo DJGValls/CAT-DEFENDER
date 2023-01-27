@@ -2,7 +2,10 @@ console.log("hello calss game");
 class Game {
 
     constructor(){
+
         this.ship = new Ship;
+        this.foe = new Foe;
+        this.shoot = new Shoot;
         this.background = new Image();
         this.background.src = "./images/spaceBackground.jpg";
     };
@@ -28,9 +31,13 @@ gameLoop = ()=>{
     // actions
 
 
-    //draw
+    // draws
     this.drawBg();
     this.ship.drawShipCat();
+    this.foe.drawFoe();
+    //to shoot
+    this.shoot.drawShoot();
+
 
 
     //recursion
