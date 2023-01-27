@@ -21,3 +21,17 @@ const startGame = ()=>{
 
 //ADD EVENT LISTENERS
 playtButtonDOM.addEventListener("click", startGame);
+
+window.addEventListener("keydown", (event)=>{
+    if (event.code === "ArrowUp") {
+        //console.log("haciendo volar a pollito");
+        game.ship.moveUpShip();
+    }
+})
+
+window.addEventListener("keydown", (event)=>{
+    if (event.code === "ArrowDown") {
+        //console.log("haciendo volar a pollito");
+        game.ship.moveDownShip();
+    }
+})
