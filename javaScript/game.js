@@ -79,10 +79,8 @@ class Game {
           this.destroyFoe(foesArr, eachFoe);
           shots.splice(shots.indexOf(eachShot), 1);
           //console.log("nave destruida");
-
         }
       });
-
     });
   }
 

@@ -8,6 +8,7 @@ const canvas = document.querySelector("#my-canvas");
 const ctx = canvas.getContext("2d");
 const startScreenDOM = document.querySelector("#splash-screen");//inti screen selector
 const gameOverScreenDom = document.querySelector("#gameover-screen");
+const playAgainButtonDOM = document.querySelector("#restart-button");
 let game;
 let shots = [];//arrary to fire a shoot
 let foesArr = []; //array to keep foes
@@ -18,8 +19,9 @@ let isGameOn = true;
 
 //GLOBAL FUNCTIONS
 const startGame = ()=>{ 
-
+    isGameOn = true;
     startScreenDOM.style.display = "none";
+    gameOverScreenDom.style.display = "none";
     canvas.style.display = "block";
 
     game = new Game;
@@ -30,6 +32,8 @@ const startGame = ()=>{
 //ADD EVENT LISTENERS
 // click on "play" 
 playtButtonDOM.addEventListener("click", startGame);
+
+playAgainButtonDOM.addEventListener("click", startGame);
 
 //ship movements
 //ship goes up
