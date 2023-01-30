@@ -21,8 +21,14 @@ class Game {
       let randomPosY = Math.random() * (-100); // => 0 y -50
       let newFoe = new Foe(randomPosY)
       foesArr.push(newFoe);
-      console.log(newFoe);
-      console.log(foesArr);
+      // console.log(newFoe);
+      // console.log(foesArr);
+    }
+  }
+
+  deletefoe = ()=>{
+    if (foesArr[0].y > 800) {
+      foesArr.shift();
     }
   }
 
@@ -30,9 +36,8 @@ class Game {
     //this.fireOneShot = true;
     let newShot = new Shoot(this.ship.xShip + 40, this.ship.yShip);
     shots.push(newShot);
-
-    console.log(newShot);
-    console.log(shots);
+    // console.log(newShot);
+    // console.log(shots);
   };
 
   deleteShot = () => {
@@ -42,7 +47,7 @@ class Game {
   };
 
   gameLoop = () => {
-    frames++;
+    frames++;//frame counter
     this.clearCanvas();
 
     // clean canvas
@@ -54,9 +59,11 @@ class Game {
     this.drawBg();
     this.ship.drawShipCat();
     
+    //to draw, move and delete the foe
     foesArr.forEach(eachFoe => {
       eachFoe.drawFoe();
       eachFoe.foe1Move();
+      this.deletefoe();
     });
     
 
