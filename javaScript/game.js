@@ -16,7 +16,16 @@ class Game {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
 
-  //to fire one shot
+  spawnFoe = ()=>{
+    if (foesArr.length === 0 || frames % 300 === 0) {
+      let randomPosY = Math.random() * (-100); // => 0 y -50
+      let newFoe = new Foe(randomPosY)
+      foesArr.push(newFoe);
+      console.log(newFoe);
+      console.log(foesArr);
+    }
+  }
+
   fire = () => {
     //this.fireOneShot = true;
     let newShot = new Shoot(this.ship.xShip + 40, this.ship.yShip);
@@ -25,6 +34,7 @@ class Game {
     console.log(newShot);
     console.log(shots);
   };
+
   deleteShot = () => {
     if (shots[0].x > 1200) {
       shots.shift();
@@ -32,25 +42,29 @@ class Game {
   };
 
   gameLoop = () => {
+    frames++;
     this.clearCanvas();
 
     // clean canvas
     console.log("iniciando loop");
 
     // actions
-    this.foe.foe1Move();
-    
+    this.spawnFoe();
     // draws
     this.drawBg();
     this.ship.drawShipCat();
-    this.foe.drawFoe();
     
-    //to shoot
+    foesArr.forEach(eachFoe => {
+      eachFoe.drawFoe();
+      eachFoe.foe1Move();
+    });
+    
+
+    //to shoot (draw, move and delete the shot)
     shots.forEach((eachShot) => {
       //hacer un disparo por golpeo de tecla - falta
       this.shot.drawShot(eachShot);
       this.shot.moveShot(eachShot);
-      //borrar cada disparo para rendimiento
       this.deleteShot();
     });
     

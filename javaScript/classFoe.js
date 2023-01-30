@@ -1,9 +1,9 @@
 console.log("hello class foe");
 class Foe{
 
-constructor(){
-    this.x = 1250;
-    this.y = 0;
+constructor(yPos){
+    this.x = 1150;
+    this.y = yPos;
     this.h = 80;
     this.w = 100;
     this.speed = 2;
