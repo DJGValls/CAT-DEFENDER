@@ -7,10 +7,12 @@ const playtButtonDOM = document.querySelector("#play-button");
 const canvas = document.querySelector("#my-canvas");
 const ctx = canvas.getContext("2d");
 const startScreenDOM = document.querySelector("#splash-screen");//inti screen selector
+const gameOverScreenDom = document.querySelector("#gameover-screen");
 let game;
 let shots = [];//arrary to fire a shoot
 let foesArr = []; //array to keep foes
 let frames = 1; //is the frames that pass in the game
+let isGameOn = true;
 
 
 
@@ -32,7 +34,7 @@ playtButtonDOM.addEventListener("click", startGame);
 //ship movements
 //ship goes up
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowUp") {        
+    if (event.code === "ArrowUp" && game.ship.yShip > 0) {        
         game.ship.moveUpShip();
     }
 });
@@ -44,14 +46,15 @@ window.addEventListener("keydown", (event)=>{
 });
 //ship goes right
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowRight") {        
+    if (event.code === "ArrowRight" && game.ship.xShip + game.ship.wShip < canvas.width) {        
         game.ship.moveRightShip();
     }
 });
 //ship goes Left
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowLeft") {        
+    if (event.code === "ArrowLeft" && game.ship.xShip > 0) {        
         game.ship.moveLeftShip();
+        //console.log(game.ship.xShip);
     }
 });
 

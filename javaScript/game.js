@@ -8,6 +8,13 @@ class Game {
     this.background.src = "./images/spaceBackground.jpg";
   }
 
+  gameOver = ()=>{
+    isGameOn = false;
+    canvas.style.display = "none"
+    gameOverScreenDom.style.display = "flex";
+    //console.log("game over");
+  }
+
   clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
@@ -15,6 +22,17 @@ class Game {
   drawBg = () => {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
+
+  //colissions
+
+  checkColissionShipFloor = ()=>{
+    if (this.ship.yShip + this.ship.hShip > canvas.height ) {
+      this.gameOver();
+    }
+  }
+
+
+
 
   spawnFoe = ()=>{
     if (foesArr.length === 0 || frames % 300 === 0) {
@@ -55,6 +73,7 @@ class Game {
 
     // actions
     this.spawnFoe();
+    this.checkColissionShipFloor();
     // draws
     this.drawBg();
     this.ship.drawShipCat();
@@ -77,6 +96,8 @@ class Game {
     
 
     //recursion
-    requestAnimationFrame(this.gameLoop);
+    if(isGameOn === true){
+      requestAnimationFrame(this.gameLoop);
+    }
   };
 }

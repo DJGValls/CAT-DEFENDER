@@ -7,11 +7,21 @@ body {
     background-color: lightblue;
   }
   
-  #play-button, #restart-button {
+  #play-button {
     background-color: red;
     font-family: 'Courier New', Courier, monospace;
     color: white;
     padding: 80px;
+    font-size: 20px;
+    margin-top: 10px;
+    border-radius: 10px; 
+  }
+
+  #restart-button {
+    background-color: red;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    padding: 10px;
     font-size: 20px;
     margin-top: 10px;
     border-radius: 10px; 
