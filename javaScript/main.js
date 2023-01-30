@@ -9,6 +9,8 @@ const ctx = canvas.getContext("2d");
 const startScreenDOM = document.querySelector("#splash-screen");//inti screen selector
 let game;
 let shots = [];//arrary to fire a shoot
+let foesArr = []; //array to keep foes
+let frames = 1; //is the frames that pass in the game
 
 
 
@@ -55,10 +57,9 @@ window.addEventListener("keydown", (event)=>{
 
 //shoot
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "Space") {        
+    if (event.code === "Space") { 
         game.fire();
-        return true;
-    } else return false;
+    } 
 
 });
 
