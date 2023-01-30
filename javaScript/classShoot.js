@@ -1,19 +1,25 @@
 console.log("hello class shoot");
 
-class Shoot{
-constructor(){
-    this.x = 500;
-    this.y = 50;
+class Shoot {
+  constructor(posX, posY) {
+    this.x = posX;
+    this.y = posY;
     this.h = 80;
     this.w = 100;
-    this.speed = 2;
+    this.speed = 10;
     this.image = new Image();
-    this.image.src = "./images/shoot.png"
-}
+    this.image.src = "./images/shoot.png";
+  }
+  //drawing shot
 
-drawShoot = ()=>{
-        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
-}
+  drawShot = (object) => {
+    ctx.drawImage(object.image, object.x, object.y, object.w, object.h);
+};
 
+moveShot = (object) => {
+    
+    object.x = object.x + this.speed;
 
+  };
+    
 }
