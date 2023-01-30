@@ -34,7 +34,7 @@ playtButtonDOM.addEventListener("click", startGame);
 //ship movements
 //ship goes up
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowUp" && game.ship.yShip > 0) {        
+    if (event.code === "ArrowUp" && game.ship.y > 0) {        
         game.ship.moveUpShip();
     }
 });
@@ -46,15 +46,15 @@ window.addEventListener("keydown", (event)=>{
 });
 //ship goes right
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowRight" && game.ship.xShip + game.ship.wShip < canvas.width) {        
+    if (event.code === "ArrowRight" && game.ship.x + game.ship.w < canvas.width) {        
         game.ship.moveRightShip();
     }
 });
 //ship goes Left
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowLeft" && game.ship.xShip > 0) {        
+    if (event.code === "ArrowLeft" && game.ship.x > 0) {        
         game.ship.moveLeftShip();
-        //console.log(game.ship.xShip);
+        //console.log(game.ship.x);
     }
 });
 

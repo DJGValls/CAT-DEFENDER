@@ -4,10 +4,10 @@ class Ship {
 
     constructor(){
         //ship
-        this.xShip = 50;
-        this.yShip = 50;
-        this.hShip = 90;
-        this.wShip = 50;
+        this.x = 50;
+        this.y = 50;
+        this.h = 90;
+        this.w = 50;
         this.speedShip = 15;
         this.imageShip = new Image();
         this.imageShip.src = "./images/ship.png"
@@ -23,7 +23,7 @@ class Ship {
     
     //drawing ship
     drawShip = ()=>{
-        ctx.drawImage(this.imageShip, this.xShip, this.yShip, this.wShip, this.hShip);
+        ctx.drawImage(this.imageShip, this.x, this.y, this.w, this.h);
     }
     //drawing cat inside the ship
     drawCat = ()=>{
@@ -38,23 +38,28 @@ class Ship {
 
     //ship movement up
     moveUpShip = ()=>{
-        this.yShip = this.yShip - this.speedShip; 
+        this.y = this.y - this.speedShip; 
         this.yCat = this.yCat - this.speedCat;
     }
     //ship movement down
     moveDownShip = ()=>{
-        this.yShip = this.yShip + this.speedShip; 
+        this.y = this.y + this.speedShip; 
         this.yCat = this.yCat + this.speedCat;
     }
     //ship movement Rigth
     moveRightShip = ()=>{
-        this.xShip += this.speedShip;
+        this.x += this.speedShip;
         this.xCat += this.speedCat;
     }
     //ship movement Left
     moveLeftShip = ()=>{
-        this.xShip -= this.speedShip;
+        this.x -= this.speedShip;
         this.xCat -= this.speedCat;
+    }
+
+    parachuteCat = ()=>{
+        this.yCat = this.yCat - 2;
+        this.xCat = this.xCat + 2;
     }
 
 

@@ -8,10 +8,21 @@ class Game {
     this.background.src = "./images/spaceBackground.jpg";
   }
 
+
+  //metods
   gameOver = ()=>{
-    isGameOn = false;
-    canvas.style.display = "none"
-    gameOverScreenDom.style.display = "flex";
+    this.ship.imageShip.src = "./images/explosion1.png";
+    this.ship.wCat = 60
+    this.ship.hCat = 100
+    this.ship.imageCat.src = "./images/endCat.png";
+    this.ship.parachuteCat();
+
+    setTimeout(function(){
+      //console.log("explosion");
+      isGameOn = false;
+      canvas.style.display = "none"
+      gameOverScreenDom.style.display = "flex";      
+    }, 3000);
     //console.log("game over");
   }
 
@@ -23,17 +34,61 @@ class Game {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
 
+  hit = (a,b)=>{
+    if (a.x < b.x + b.w &&
+        a.x + a.w > b.x &&
+        a.y < b.y + b.h &&
+        a.h + a.y > b.y) {
+        //console.log("la nave a chocado");
+        return true;
+      }
+  }
+
+  destroyFoe = (arrayOfFoes, foe)=>{
+    foe.image.src = "./images/explosion2.png"
+    setTimeout(function(){
+      //console.log("explosion");
+      arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
+    }, 200);
+  }
+
+
   //colissions
 
   checkColissionShipFloor = ()=>{
-    if (this.ship.yShip + this.ship.hShip > canvas.height ) {
+    if (this.ship.y + this.ship.h > canvas.height ) {
+      //isGameOn = false;
       this.gameOver();
     }
+  }
+  
+  checkColissionShipFoe = ()=>{
+    foesArr.forEach(eachFoe => {
+      if (this.hit(eachFoe, this.ship)) {
+        //console.log("la nave a chocado");
+        this.gameOver();
+      }
+    });
+  }
+
+  checkColissionShotFoe = ()=>{
+    foesArr.forEach(eachFoe => {
+      shots.forEach(eachShot => {
+        if (this.hit(eachFoe, eachShot)) {
+          //foesArr.splice(foesArr.indexOf(eachFoe), 1);
+          this.destroyFoe(foesArr, eachFoe);
+          shots.splice(shots.indexOf(eachShot), 1);
+          //console.log("nave destruida");
+
+        }
+      });
+
+    });
   }
 
 
 
-
+  //spawns
   spawnFoe = ()=>{
     if (foesArr.length === 0 || frames % 300 === 0) {
       let randomPosY = Math.random() * (-100); // => 0 y -50
@@ -52,7 +107,7 @@ class Game {
 
   fire = () => {
     //this.fireOneShot = true;
-    let newShot = new Shoot(this.ship.xShip + 40, this.ship.yShip);
+    let newShot = new Shoot(this.ship.x + 10, this.ship.y);
     shots.push(newShot);
     // console.log(newShot);
     // console.log(shots);
@@ -64,6 +119,8 @@ class Game {
     }
   };
 
+
+  //the game loop
   gameLoop = () => {
     frames++;//frame counter
     this.clearCanvas();
@@ -74,6 +131,8 @@ class Game {
     // actions
     this.spawnFoe();
     this.checkColissionShipFloor();
+    this.checkColissionShipFoe();
+    this.checkColissionShotFoe();
     // draws
     this.drawBg();
     this.ship.drawShipCat();
@@ -85,7 +144,6 @@ class Game {
       this.deletefoe();
     });
     
-
     //to shoot (draw, move and delete the shot)
     shots.forEach((eachShot) => {
       //hacer un disparo por golpeo de tecla - falta
@@ -94,7 +152,6 @@ class Game {
       this.deleteShot();
     });
     
-
     //recursion
     if(isGameOn === true){
       requestAnimationFrame(this.gameLoop);

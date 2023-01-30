@@ -2,7 +2,7 @@ console.log("hello class foe");
 class Foe{
 
 constructor(yPos){
-    this.x = 1150;
+    this.x = 1200;
     this.y = yPos;
     this.h = 80;
     this.w = 100;

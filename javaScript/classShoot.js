@@ -4,8 +4,8 @@ class Shoot {
   constructor(posX, posY) {
     this.x = posX;
     this.y = posY;
-    this.h = 80;
-    this.w = 100;
+    this.h = 20;
+    this.w = 60;
     this.speed = 10;
     this.image = new Image();
     this.image.src = "./images/shoot.png";
