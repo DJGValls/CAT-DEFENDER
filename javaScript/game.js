@@ -4,6 +4,7 @@ class Game {
     this.ship = new Ship();
     this.foe = new Foe();
     this.shot = new Shoot();
+    this.city = new City(0, 2);
     this.background = new Image();
     this.background.src = "./images/spaceBackground.jpg";
   }
@@ -84,10 +85,18 @@ class Game {
       });
     });
   }
-
-
-
+  
+  
+  
   //spawns
+
+  spawnCity =()=>{
+    if (cityArr.length === 0 || frames % 300 === 0) {//every 5 seconds
+      let newCity = new City(1200, 2); // move with 2 the speed and needs 5 seconds to exit the canvas
+      cityArr.push(newCity);
+    }
+  }
+
   spawnFoe = ()=>{
     if (foesArr.length === 0 || frames % 300 === 0) {//every 5 seconds
       let randomPosY = Math.random() * (-500); // => 0 y -300px
@@ -142,13 +151,23 @@ class Game {
     console.log("iniciando loop");
 
     // actions
+    //this.spawnFirstCity();
+    this.spawnCity();
     this.spawnFoe();
     this.checkColissionShipFloor();
     this.checkColissionShipFoe();
     this.checkColissionShotFoe();
+    this.city.moveCity();
     // draws
     this.drawBg();
+    this.city.drawCity();
     this.ship.drawShipCat();
+
+    //to draw the city
+    cityArr.forEach(eachCity => {
+      eachCity.drawCity();
+      eachCity.moveCity();
+    });
     
     //to draw, move and delete the foe
     foesArr.forEach(eachFoe => {
@@ -161,7 +180,6 @@ class Game {
         eachFoe.foe2Move();
         this.deletefoe();
       }if (eachFoe.typeOfFoe === "foe3") {
-        console.log("hello foe3");
         eachFoe.drawFoe();
         eachFoe.foe3Move();
         this.deletefoe();
