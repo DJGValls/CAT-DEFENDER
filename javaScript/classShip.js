@@ -5,7 +5,7 @@ class Ship {
     constructor(){
         //ship
         this.x = 50;
-        this.y = 50;
+        this.y = 350;
         this.h = 90;
         this.w = 50;
         this.speedShip = 15;
@@ -13,7 +13,7 @@ class Ship {
         this.imageShip.src = "./images/ship.png"
         //cat
         this.xCat = 60;
-        this.yCat= 60;
+        this.yCat= 360;
         this.hCat= 30;
         this.wCat= 30;
         this.speedCat = 15;

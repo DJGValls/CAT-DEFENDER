@@ -7,16 +7,17 @@ class Game {
     this.background = new Image();
     this.background.src = "./images/spaceBackground.jpg";
   }
-
-
+  
+  
   //metods
   gameOver = ()=>{
+    isCatAlive = false;
     this.ship.imageShip.src = "./images/explosion1.png";
     this.ship.wCat = 60
     this.ship.hCat = 100
     this.ship.imageCat.src = "./images/endCat.png";
     this.ship.parachuteCat();
-
+    
     setTimeout(function(){
       //console.log("explosion");
       isGameOn = false;
@@ -29,21 +30,21 @@ class Game {
   clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
-
+  
   drawBg = () => {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
-
+  
   hit = (a,b)=>{
     if (a.x < b.x + b.w &&
         a.x + a.w > b.x &&
         a.y < b.y + b.h &&
         a.h + a.y > b.y) {
-        //console.log("la nave a chocado");
-        return true;
+          //console.log("la nave a chocado");
+          return true;
+        }
       }
-  }
-
+      
   destroyFoe = (arrayOfFoes, foe)=>{
     foe.image.src = "./images/explosion2.png"
     setTimeout(function(){
@@ -51,10 +52,10 @@ class Game {
       arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
     }, 200);
   }
-
-
+  
+  
   //colissions
-
+  
   checkColissionShipFloor = ()=>{
     if (this.ship.y + this.ship.h > canvas.height ) {
       //isGameOn = false;
@@ -88,9 +89,23 @@ class Game {
 
   //spawns
   spawnFoe = ()=>{
-    if (foesArr.length === 0 || frames % 300 === 0) {
-      let randomPosY = Math.random() * (-100); // => 0 y -50
-      let newFoe = new Foe(randomPosY)
+    if (foesArr.length === 0 || frames % 300 === 0) {//every 5 seconds
+      let randomPosY = Math.random() * (-500); // => 0 y -300px
+      let newFoe = new Foe(randomPosY, 1200, 100, 80, 1, "foe1")
+      foesArr.push(newFoe);
+      // console.log(newFoe);
+      // console.log(foesArr);
+    }
+    if (foesArr.length === 0 || frames % 200 === 0) {//every 3 seconds
+      let randomPosY = Math.random() * (404); // => 0 to 500px
+      let newFoe = new Foe(randomPosY, 1200, 100, 80, 5, "foe2")
+      foesArr.push(newFoe);
+      // console.log(newFoe);
+      // console.log(foesArr);
+    }
+    if (foesArr.length === 0 || frames % 400 === 0) {//every 6 seconds
+      let randomPosX = Math.random() * (1212); // => 0 to 1200px
+      let newFoe = new Foe(0, randomPosX, 100, 80, 2, "foe3")
       foesArr.push(newFoe);
       // console.log(newFoe);
       // console.log(foesArr);
@@ -98,7 +113,7 @@ class Game {
   }
 
   deletefoe = ()=>{
-    if (foesArr[0].y > 800) {
+    if (foesArr[0].y > 800 || foesArr[0].x < 0) {
       foesArr.shift();
     }
   }
@@ -137,9 +152,21 @@ class Game {
     
     //to draw, move and delete the foe
     foesArr.forEach(eachFoe => {
-      eachFoe.drawFoe();
-      eachFoe.foe1Move();
-      this.deletefoe();
+      if (eachFoe.typeOfFoe === "foe1") {
+        eachFoe.drawFoe();
+        eachFoe.foe1Move();
+        this.deletefoe();
+      }if (eachFoe.typeOfFoe === "foe2") {
+        eachFoe.drawFoe();
+        eachFoe.foe2Move();
+        this.deletefoe();
+      }if (eachFoe.typeOfFoe === "foe3") {
+        console.log("hello foe3");
+        eachFoe.drawFoe();
+        eachFoe.foe3Move();
+        this.deletefoe();
+      }
+      
     });
     
     //to shoot (draw, move and delete the shot)

@@ -14,11 +14,13 @@ let shots = [];//arrary to fire a shoot
 let foesArr = []; //array to keep foes
 let frames = 1; //is the frames that pass in the game
 let isGameOn = true;
+let isCatAlive = true;
 
 
 
 //GLOBAL FUNCTIONS
-const startGame = ()=>{ 
+const startGame = ()=>{
+    isCatAlive = true; 
     isGameOn = true;
     startScreenDOM.style.display = "none";
     gameOverScreenDom.style.display = "none";
@@ -38,25 +40,25 @@ playAgainButtonDOM.addEventListener("click", startGame);
 //ship movements
 //ship goes up
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowUp" && game.ship.y > 0) {        
+    if (event.code === "ArrowUp" && game.ship.y > 0 && isCatAlive) {        
         game.ship.moveUpShip();
     }
 });
 //ship goes down
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowDown") {        
+    if (event.code === "ArrowDown" && isCatAlive) {        
         game.ship.moveDownShip();
     }
 });
 //ship goes right
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowRight" && game.ship.x + game.ship.w < canvas.width) {        
+    if (event.code === "ArrowRight" && game.ship.x + game.ship.w < canvas.width && isCatAlive) {        
         game.ship.moveRightShip();
     }
 });
 //ship goes Left
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "ArrowLeft" && game.ship.x > 0) {        
+    if (event.code === "ArrowLeft" && game.ship.x > 0 && isCatAlive) {        
         game.ship.moveLeftShip();
         //console.log(game.ship.x);
     }
@@ -64,7 +66,7 @@ window.addEventListener("keydown", (event)=>{
 
 //shoot
 window.addEventListener("keydown", (event)=>{
-    if (event.code === "Space") { 
+    if (event.code === "Space" && isCatAlive) { 
         game.fire();
     } 
 
