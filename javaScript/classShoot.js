@@ -14,12 +14,9 @@ class Shoot {
 
   drawShot = (object) => {
     ctx.drawImage(object.image, object.x, object.y, object.w, object.h);
-};
-
-moveShot = (object) => {
-    
-    object.x = object.x + this.speed;
-
   };
-    
+
+  moveShot = (object) => {
+    object.x = object.x + this.speed;
+  };
 }

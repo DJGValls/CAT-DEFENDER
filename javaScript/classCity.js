@@ -11,16 +11,15 @@ class City {
     this.cityImage.src = "./images/city.png";
   }
 
-drawCity = ()=>{
+  drawCity = () => {
     ctx.drawImage(this.cityImage, this.x, this.y, this.w, this.h);
-}
+  };
 
-moveCity = ()=>{
-    this.x -= this.speed
-}
+  moveCity = () => {
+    this.x -= this.speed;
+  };
 
-drawFirstCity = ()=>{
+  drawFirstCity = () => {
     ctx.drawImage(this.cityImage, 0, this.y, this.w, this.h);
-}
-
+  };
 }
