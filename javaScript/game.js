@@ -97,6 +97,12 @@ class Game {
     }
   }
 
+  deleteCity = ()=>{
+    if (cityArr[0].x + cityArr[0].w < 0) {
+      cityArr.shift();
+    }
+  }
+
   spawnFoe = ()=>{
     if (foesArr.length === 0 || frames % 300 === 0) {//every 5 seconds
       let randomPosY = Math.random() * (-500); // => 0 y -300px
@@ -167,6 +173,7 @@ class Game {
     cityArr.forEach(eachCity => {
       eachCity.drawCity();
       eachCity.moveCity();
+      this.deleteCity();
     });
     
     //to draw, move and delete the foe
