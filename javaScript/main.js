@@ -10,13 +10,7 @@ const startScreenDOM = document.querySelector("#splash-screen");//inti screen se
 const gameOverScreenDom = document.querySelector("#gameover-screen");
 const playAgainButtonDOM = document.querySelector("#restart-button");
 let game;
-let shots = [];//arrary to fire a shoot
-let foesArr = []; //array to keep foes
-let cityArr = [];
 let frames = 1; //is the frames that pass in the game
-let isGameOn = true;
-let isCatAlive = true;
-
 
 
 //GLOBAL FUNCTIONS

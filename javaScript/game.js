@@ -7,11 +7,17 @@ class Game {
     this.city = new City(0, 2);
     this.background = new Image();
     this.background.src = "./images/spaceBackground.jpg";
+
+    this.shots = [];//arrary to fire a shoot
+    this.foesArr = []; //array to keep foes
+    this.cityArr = [];
+    this.isGameOn = true;
+    this.isCatAlive = true;
   }
 
   //metods
   gameOver = () => {
-    isCatAlive = false;
+    this.isCatAlive = false;
     this.ship.imageShip.src = "./images/explosion1.png";
     this.ship.wCat = 60;
     this.ship.hCat = 100;
@@ -20,7 +26,7 @@ class Game {
 
     setTimeout(function () {
       //console.log("explosion");
-      isGameOn = false;
+      this.isGameOn = false;
       canvas.style.display = "none";
       gameOverScreenDom.style.display = "flex";
     }, 3000);
@@ -59,13 +65,13 @@ class Game {
 
   checkColissionShipFloor = () => {
     if (this.ship.y + this.ship.h > canvas.height) {
-      //isGameOn = false;
+      //this.isGameOn = false;
       this.gameOver();
     }
   };
 
   checkColissionShipFoe = () => {
-    foesArr.forEach((eachFoe) => {
+    this.foesArr.forEach((eachFoe) => {
       if (this.hit(eachFoe, this.ship)) {
         //console.log("la nave a chocado");
         this.gameOver();
@@ -74,12 +80,12 @@ class Game {
   };
 
   checkColissionShotFoe = () => {
-    foesArr.forEach((eachFoe) => {
-      shots.forEach((eachShot) => {
+    this.foesArr.forEach((eachFoe) => {
+      this.shots.forEach((eachShot) => {
         if (this.hit(eachFoe, eachShot)) {
-          //foesArr.splice(foesArr.indexOf(eachFoe), 1);
-          this.destroyFoe(foesArr, eachFoe);
-          shots.splice(shots.indexOf(eachShot), 1);
+          //this.foesArr.splice(this.foesArr.indexOf(eachFoe), 1);
+          this.destroyFoe(this.foesArr, eachFoe);
+          this.shots.splice(this.shots.indexOf(eachShot), 1);
           //console.log("nave destruida");
         }
       });
@@ -89,63 +95,63 @@ class Game {
   //spawns
 
   spawnCity = () => {
-    if (cityArr.length === 0 || frames % 300 === 0) {
+    if (this.cityArr.length === 0 || frames % 300 === 0) {
       //every 5 seconds
       let newCity = new City(1200, 2); // move with 2 the speed and needs 5 seconds to exit the canvas
-      cityArr.push(newCity);
+      this.cityArr.push(newCity);
     }
   };
 
   deleteCity = () => {
-    if (cityArr[0].x + cityArr[0].w < 0) {
-      cityArr.shift();
+    if (this.cityArr[0].x + this.cityArr[0].w < 0) {
+      this.cityArr.shift();
     }
   };
 
   spawnFoe = () => {
-    if (foesArr.length === 0 || frames % 300 === 0) {
+    if (this.foesArr.length === 0 || frames % 300 === 0) {
       //every 5 seconds
       let randomPosY = Math.random() * -500; // => 0 y -300px
       let newFoe = new Foe(randomPosY, 1200, 100, 80, 1, "foe1");
-      foesArr.push(newFoe);
+      this.foesArr.push(newFoe);
       // console.log(newFoe);
-      // console.log(foesArr);
+      // console.log(this.foesArr);
     }
-    if (foesArr.length === 0 || frames % 200 === 0) {
+    if (this.foesArr.length === 0 || frames % 200 === 0) {
       //every 3 seconds
       let randomPosY = Math.random() * 404; // => 0 to 500px
       let newFoe = new Foe(randomPosY, 1200, 100, 80, 5, "foe2");
-      foesArr.push(newFoe);
+      this.foesArr.push(newFoe);
       // console.log(newFoe);
-      // console.log(foesArr);
+      // console.log(this.foesArr);
     }
-    if (foesArr.length === 0 || frames % 400 === 0) {
+    if (this.foesArr.length === 0 || frames % 400 === 0) {
       //every 6 seconds
       let randomPosX = Math.random() * 1212; // => 0 to 1200px
       let newFoe = new Foe(0, randomPosX, 100, 80, 2, "foe3");
-      foesArr.push(newFoe);
+      this.foesArr.push(newFoe);
       // console.log(newFoe);
-      // console.log(foesArr);
+      // console.log(this.foesArr);
     }
   };
 
   deletefoe = () => {
-    if (foesArr[0].y > 800 || foesArr[0].x < 0) {
-      foesArr.shift();
+    if (this.foesArr[0].y > 800 || this.foesArr[0].x < 0) {
+      this.foesArr.shift();
     }
   };
 
   fire = () => {
     //this.fireOneShot = true;
     let newShot = new Shoot(this.ship.x + 10, this.ship.y);
-    shots.push(newShot);
+    this.shots.push(newShot);
     // console.log(newShot);
-    // console.log(shots);
+    // console.log(this.shots);
   };
 
   deleteShot = () => {
-    if (shots[0].x > 1200) {
-      shots.shift();
+    if (this.shots[0].x > 1200) {
+      this.shots.shift();
     }
   };
 
@@ -171,14 +177,14 @@ class Game {
     this.ship.drawShipCat();
 
     //to draw the city
-    cityArr.forEach((eachCity) => {
+    this.cityArr.forEach((eachCity) => {
       eachCity.moveCity();
       eachCity.drawCity();
       this.deleteCity();
     });
 
     //to draw, move and delete the foe
-    foesArr.forEach((eachFoe) => {
+    this.foesArr.forEach((eachFoe) => {
       if (eachFoe.typeOfFoe === "foe1") {
         eachFoe.foe1Move();
         eachFoe.drawFoe();
@@ -197,7 +203,7 @@ class Game {
     });
 
     //to shoot (draw, move and delete the shot)
-    shots.forEach((eachShot) => {
+    this.shots.forEach((eachShot) => {
       //hacer un disparo por golpeo de tecla - falta
       this.shot.moveShot(eachShot);
       this.shot.drawShot(eachShot);
@@ -205,7 +211,7 @@ class Game {
     });
 
     //recursion
-    if (isGameOn === true) {
+    if (this.isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
     }
   };
