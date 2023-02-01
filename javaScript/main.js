@@ -13,12 +13,14 @@ let game;
 let frames = 1; //is the frames that pass in the game
 let isGameOn = true;
 let isCatAlive = true;
+let population = 50000;
 
 
 //GLOBAL FUNCTIONS
 const startGame = ()=>{
     isCatAlive = true; 
     isGameOn = true;
+    population = 50000
     startScreenDOM.style.display = "none";
     gameOverScreenDom.style.display = "none";
     canvas.style.display = "block";

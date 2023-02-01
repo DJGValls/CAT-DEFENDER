@@ -12,6 +12,7 @@ class Game {
     this.foesArr = []; //array to keep foes
     this.cityArr = [];
     this.score = 0;
+    this.population = 50000;
     
   }
 
@@ -23,6 +24,7 @@ class Game {
     this.ship.hCat = 100;
     this.ship.imageCat.src = "./images/endCat.png";
     this.ship.parachuteCat();
+    
 
     setTimeout(function () {
       //console.log("explosion");
@@ -36,57 +38,78 @@ class Game {
   clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
-
+  
   drawBg = () => {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
+  
+  drawScore = ()=> {
+    //let c = document.getElementById("myCanvas");
+    //let ctx = c.getContext("2d");
+    ctx.font = "20px Tlwg Typewriter";
+    ctx.fillText(`SCORE: ${this.score}` , 1000, 50);
+    ctx.fillStyle = "yellow"
+    // let grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+    // grd.addColorStop(0, "red");
+    // grd.addColorStop(1, "black");
+    // Fill with gradient
+    //ctx.fillStyle = grd;
+    //ctx.fillRect(10, 10, 150, 80);
+  }
 
+  drawPopulation = ()=>{
+    ctx.font = "20px Tlwg Typewriter";
+    ctx.fillText(`POPULATION: ${population}` , 50, 50);
+    ctx.fillStyle = "yellow"
+  }
+  
   hit = (a, b) => {
     if (
       a.x < b.x + b.w &&
       a.x + a.w > b.x &&
       a.y < b.y + b.h &&
       a.h + a.y > b.y
-    ) {
-      this.score++
-      console.log(this.score);
-      return true;
-    }
-  };
-
-  destroyFoe = (arrayOfFoes, foe) => {
-    foe.image.src = "./images/explosion2.png";
-    setTimeout(function () {
-      //console.log("explosion");
-      arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
-    }, 200);
-  };
-
-  //colissions
-
-  checkColissionShipFloor = () => {
-    if (this.ship.y + this.ship.h > canvas.height) {
-      //isGameOn = false;
-      this.gameOver();
-    }
-  };
-
-  checkColissionShipFoe = () => {
-    this.foesArr.forEach((eachFoe) => {
-      if (this.hit(eachFoe, this.ship)) {
-        //console.log("la nave a chocado");
+      ) {
+        
+        return true;
+      }
+    };
+    
+    destroyFoe = (arrayOfFoes, foe) => {
+      foe.image.src = "./images/explosion2.png";
+      setTimeout(function () {
+        //console.log("explosion");
+        arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
+      }, 200);
+      
+    };
+    
+    //colissions
+    
+    checkColissionShipFloor = () => {
+      if (this.ship.y + this.ship.h > canvas.height) {
+        //isGameOn = false;
         this.gameOver();
       }
-    });
-  };
-
-  checkColissionShotFoe = () => {
-    this.foesArr.forEach((eachFoe) => {
-      this.shots.forEach((eachShot) => {
-        if (this.hit(eachFoe, eachShot)) {
-          //this.foesArr.splice(this.foesArr.indexOf(eachFoe), 1);
-          this.destroyFoe(this.foesArr, eachFoe);
-          this.shots.splice(this.shots.indexOf(eachShot), 1);
+    };
+    
+    checkColissionShipFoe = () => {
+      this.foesArr.forEach((eachFoe) => {
+        if (this.hit(eachFoe, this.ship)) {
+          //console.log("la nave a chocado");
+          this.gameOver();
+        }
+      });
+    };
+    
+    checkColissionShotFoe = () => {
+      this.foesArr.forEach((eachFoe) => {
+        this.shots.forEach((eachShot) => {
+          if (this.hit(eachFoe, eachShot)) {
+            //this.foesArr.splice(this.foesArr.indexOf(eachFoe), 1);
+            this.destroyFoe(this.foesArr, eachFoe);
+            this.shots.splice(this.shots.indexOf(eachShot), 1);
+            this.score++
           //console.log("nave destruida");
         }
       });
@@ -137,7 +160,7 @@ class Game {
   };
 
   deletefoe = () => {
-    if (this.foesArr[0].y > 800 || this.foesArr[0].x < 0) {
+    if (this.foesArr[0].y > 800 || this.foesArr[0].x < 0 || this.foesArr[0].y < -100) {
       this.foesArr.shift();
     }
   };
@@ -156,19 +179,6 @@ class Game {
     }
   };
 
-  drawScore = ()=> {
-    //let c = document.getElementById("myCanvas");
-    //let ctx = c.getContext("2d");
-    ctx.font = "20px Tlwg Typewriter";
-    ctx.fillText(`SCORE: ${this.score}` , 10, 50);
-    ctx.fillStyle = "yellow"
-    // let grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
-    // grd.addColorStop(0, "red");
-    // grd.addColorStop(1, "black");
-    // Fill with gradient
-    //ctx.fillStyle = grd;
-    //ctx.fillRect(10, 10, 150, 80);
-  }
 
   //the game loop
   gameLoop = () => {
@@ -186,18 +196,22 @@ class Game {
     this.checkColissionShipFloor();
     this.checkColissionShipFoe();
     this.checkColissionShotFoe();
+    if (population <= 0) {
+      this.gameOver();
+    }
     // draws
     this.drawBg();
     this.city.drawCity();
-    this.ship.drawShipCat();
-    this.drawScore();
-
     //to draw the city
     this.cityArr.forEach((eachCity) => {
       eachCity.moveCity();
       eachCity.drawCity();
       this.deleteCity();
     });
+    this.ship.drawShipCat();
+    this.drawScore();
+    this.drawPopulation();
+
 
     //to draw, move and delete the foe
     this.foesArr.forEach((eachFoe) => {
@@ -205,6 +219,9 @@ class Game {
         eachFoe.foe1Move();
         eachFoe.drawFoe();
         this.deletefoe();
+        if (eachFoe.y > 648) {
+          eachFoe.drawAbduction();
+        }
       }
       if (eachFoe.typeOfFoe === "foe2") {
         eachFoe.foe2Move();
@@ -215,6 +232,9 @@ class Game {
         eachFoe.foe3Move();
         eachFoe.drawFoe();
         this.deletefoe();
+        if (eachFoe.y > 648) {
+          eachFoe.drawAbduction();
+        }
       }
     });
 
