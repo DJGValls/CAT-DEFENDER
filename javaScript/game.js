@@ -11,6 +11,7 @@ class Game {
     this.shots = [];//arrary to fire a shoot
     this.foesArr = []; //array to keep foes
     this.cityArr = [];
+    this.score = 0;
     
   }
 
@@ -47,7 +48,8 @@ class Game {
       a.y < b.y + b.h &&
       a.h + a.y > b.y
     ) {
-      //console.log("la nave a chocado");
+      this.score++
+      console.log(this.score);
       return true;
     }
   };
@@ -154,6 +156,20 @@ class Game {
     }
   };
 
+  drawScore = ()=> {
+    //let c = document.getElementById("myCanvas");
+    //let ctx = c.getContext("2d");
+    ctx.font = "20px Tlwg Typewriter";
+    ctx.fillText(`SCORE: ${this.score}` , 10, 50);
+    ctx.fillStyle = "yellow"
+    // let grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
+    // grd.addColorStop(0, "red");
+    // grd.addColorStop(1, "black");
+    // Fill with gradient
+    //ctx.fillStyle = grd;
+    //ctx.fillRect(10, 10, 150, 80);
+  }
+
   //the game loop
   gameLoop = () => {
     frames++; //frame counter
@@ -174,6 +190,7 @@ class Game {
     this.drawBg();
     this.city.drawCity();
     this.ship.drawShipCat();
+    this.drawScore();
 
     //to draw the city
     this.cityArr.forEach((eachCity) => {
