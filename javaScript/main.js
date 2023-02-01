@@ -11,6 +11,8 @@ const gameOverScreenDom = document.querySelector("#gameover-screen");
 const playAgainButtonDOM = document.querySelector("#restart-button");
 let game;
 let frames = 1; //is the frames that pass in the game
+let isGameOn = true;
+let isCatAlive = true;
 
 
 //GLOBAL FUNCTIONS

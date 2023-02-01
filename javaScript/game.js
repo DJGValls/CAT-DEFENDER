@@ -11,13 +11,12 @@ class Game {
     this.shots = [];//arrary to fire a shoot
     this.foesArr = []; //array to keep foes
     this.cityArr = [];
-    this.isGameOn = true;
-    this.isCatAlive = true;
+    
   }
 
   //metods
   gameOver = () => {
-    this.isCatAlive = false;
+    isCatAlive = false;
     this.ship.imageShip.src = "./images/explosion1.png";
     this.ship.wCat = 60;
     this.ship.hCat = 100;
@@ -26,7 +25,7 @@ class Game {
 
     setTimeout(function () {
       //console.log("explosion");
-      this.isGameOn = false;
+      isGameOn = false;
       canvas.style.display = "none";
       gameOverScreenDom.style.display = "flex";
     }, 3000);
@@ -65,7 +64,7 @@ class Game {
 
   checkColissionShipFloor = () => {
     if (this.ship.y + this.ship.h > canvas.height) {
-      //this.isGameOn = false;
+      //isGameOn = false;
       this.gameOver();
     }
   };
@@ -211,7 +210,7 @@ class Game {
     });
 
     //recursion
-    if (this.isGameOn === true) {
+    if (isGameOn === true) {
       requestAnimationFrame(this.gameLoop);
     }
   };
