@@ -16,6 +16,9 @@ body {
   background-color: red;
   font-family: "arcadeFont";
   color: white;
+  position: absolute;
+  top: 400px;
+  padding: 30px;
   padding: 60px;
   font-size: 40px;
   margin-top: 10px;
@@ -26,6 +29,8 @@ body {
   background-color: red;
   font-family: "arcadeFont";
   color: white;
+  position: absolute;
+  top: 650px;
   padding: 30px;
   font-size: 30px;
   margin-top: 10px;
@@ -56,11 +61,7 @@ body {
   position: absolute;
   left: 400px;
   top: 80px;
-  /* font-weight: bold; */
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* justify-content: left; */
-  /* align-items: center;  */
+  
 }
 
 #score {
@@ -71,11 +72,18 @@ body {
   position: absolute;
   left: 1350px;
   top: 80px;
-  /* font-weight: bold; */
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* justify-content: left; */
-  /* align-items: center;  */
+ 
+}
+
+#howTo {
+  display: block;
+  font-family: "arcadeFont";
+  color:yellow;
+  font-size: 25px;
+  position: absolute;
+  left: 850px;
+  top: 600px;
+  
 }
 
 audio {

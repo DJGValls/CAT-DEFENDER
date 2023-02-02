@@ -11,7 +11,8 @@ const playAgainButtonDOM = document.querySelector("#restart-button");
 const populationDOM = document.querySelector("#population");
 let populationSpanDOM = document.querySelector("#population span");
 const scoreDOM = document.querySelector("#score");
-let scoreSpanDOM = document.querySelector("#score span"); 
+let scoreSpanDOM = document.querySelector("#score span");
+const howToDOM = document.querySelector("#howTo"); 
 
 const musicSoundDOM = document.querySelector("#music");
 const gameoverSoundDOM = document.querySelector("#gameover")
@@ -43,8 +44,9 @@ let fireShot = false;
 const startGame = () => {
   populationSpanDOM.innerText = 50000;
   scoreSpanDOM.innerText = 0;
-  populationDOM.style.display = "block"
-  scoreDOM.style.display = "block"
+  populationDOM.style.display = "block";
+  scoreDOM.style.display = "block";
+  howToDOM.style.display = "none";
   gameoverSoundDOM.pause();
   musicSoundDOM.load();
   musicSoundDOM.play();
