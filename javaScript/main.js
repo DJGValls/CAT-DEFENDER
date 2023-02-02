@@ -30,8 +30,6 @@ screamsSoundDOM.volume = 0.01;
 
 let game;
 //game = new Game()
-populationSpanDOM.innerText = 50000;
-scoreSpanDOM.innerText = 0;
 let frames = 1; //is the frames that pass in the game
 let isGameOn = true;
 let isCatAlive = true;
@@ -43,6 +41,8 @@ let fireShot = false;
 
 //GLOBAL FUNCTIONS
 const startGame = () => {
+  populationSpanDOM.innerText = 50000;
+  scoreSpanDOM.innerText = 0;
   populationDOM.style.display = "block"
   scoreDOM.style.display = "block"
   gameoverSoundDOM.pause();
