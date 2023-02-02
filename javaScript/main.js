@@ -8,8 +8,18 @@ const ctx = canvas.getContext("2d");
 const startScreenDOM = document.querySelector("#splash-screen"); //inti screen selector
 const gameOverScreenDom = document.querySelector("#gameover-screen");
 const playAgainButtonDOM = document.querySelector("#restart-button");
+
+const musicSoundDOM = document.querySelector("#music");
+const gameoverSoundDOM = document.querySelector("#gameover")
 const blasterSoundDOM = document.querySelector("#blaster");
+const meawSoundDOM = document.querySelector("#meaw");
+musicSoundDOM.volume = 0.01;
+gameoverSoundDOM.volume = 0.1;
+blasterSoundDOM.volume = 0.1;
+meawSoundDOM.volume = 0.2;
+
 let game;
+//game = new Game()
 let frames = 1; //is the frames that pass in the game
 let isGameOn = true;
 let isCatAlive = true;
@@ -20,10 +30,12 @@ let rigthMove = false;
 let leftMove = false;
 let fireShot = false;
 
-blasterSoundDOM.volume = 0.1;
-
 //GLOBAL FUNCTIONS
 const startGame = () => {
+  gameoverSoundDOM.pause();
+  musicSoundDOM.load();
+  musicSoundDOM.play();
+
   isCatAlive = true;
   isGameOn = true;
   population = 50000;
@@ -55,7 +67,7 @@ keyDownHandler = (e) => {
       fireShot = true;
     }
     //fireShot = true;
-  }else fireShot = false;
+  } else fireShot = false;
 };
 
 keyUpHandler = (e) => {

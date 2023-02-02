@@ -17,6 +17,9 @@ class Game {
 
   //metods
   gameOver = () => {
+    musicSoundDOM.pause();
+    meawSoundDOM.play();
+    gameoverSoundDOM.play();
     isCatAlive = false;
     this.ship.imageShip.src = "./images/explosion1.png";
     this.ship.wCat = 60;
@@ -230,6 +233,7 @@ class Game {
   gameLoop = () => {
     frames++; //frame counter
     this.clearCanvas();
+    
 
     // clean canvas
     console.log("iniciando loop");
