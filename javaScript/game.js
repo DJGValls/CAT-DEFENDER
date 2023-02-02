@@ -13,8 +13,6 @@ class Game {
     this.cityArr = [];
     this.score = 0;
     this.population = 50000;
-
-    
   }
 
   //metods
@@ -64,10 +62,10 @@ class Game {
   };
 
   //ship movements
- 
+
   //ship movement up
   moveUpShip = () => {
-    if (upMove && this.ship.y > 0 && isCatAlive) {      
+    if (upMove && this.ship.y > 0 && isCatAlive) {
       this.ship.y = this.ship.y - this.ship.speedShip;
       this.ship.yCat = this.ship.yCat - this.ship.speedCat;
     }
@@ -93,13 +91,21 @@ class Game {
       this.ship.xCat -= this.ship.speedCat;
     }
   };
+  //ship action of shoot
+  shooting = () => {
+    if (fireShot && isCatAlive) {
+      //this.fire();
+      // blasterSoundDOM.play();
+    }
+  };
 
-  moveShip = ()=>{
+  moveShip = () => {
     this.moveUpShip();
     this.moveDownShip();
     this.moveRightShip();
     this.moveLeftShip();
-  }
+    this.shooting();
+  };
 
   hit = (a, b) => {
     if (

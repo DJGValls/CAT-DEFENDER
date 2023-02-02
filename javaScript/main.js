@@ -48,6 +48,14 @@ keyDownHandler = (e) => {
   if (e.keyCode == 37) {
     leftMove = true;
   }
+  if (e.keyCode == 32) {
+    if (!fireShot) {
+      game.fire();
+      blasterSoundDOM.play();
+      fireShot = true;
+    }
+    //fireShot = true;
+  }else fireShot = false;
 };
 
 keyUpHandler = (e) => {
@@ -63,6 +71,9 @@ keyUpHandler = (e) => {
   if (e.keyCode == 37) {
     leftMove = false;
   }
+  // if (e.keyCode == 32) {
+  //   fireShot = false;
+  // }
 };
 
 //ADD EVENT LISTENERS
@@ -73,9 +84,9 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 //shoot
-window.addEventListener("keydown", (event) => {
-  if (event.code === "Space" && isCatAlive) {
-    game.fire();
-    blasterSoundDOM.play();
-  }
-});
+// window.addEventListener("keydown", (event) => {
+//   if (event.code === "Space" && isCatAlive) {
+//     game.fire();
+//     blasterSoundDOM.play();
+//   }
+// });
