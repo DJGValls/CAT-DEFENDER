@@ -7,7 +7,7 @@ class Ship {
     this.y = 350;
     this.h = 90;
     this.w = 50;
-    this.speedShip = 15;
+    this.speedShip = 8;
     this.imageShip = new Image();
     this.imageShip.src = "./images/ship.png";
     //cat
@@ -15,11 +15,15 @@ class Ship {
     this.yCat = 360;
     this.hCat = 30;
     this.wCat = 30;
-    this.speedCat = 15;
+    this.speedCat = 8;
     this.imageCat = new Image();
     this.imageCat.src = "./images/cat.png";
-  }
+    this.UP = false;
+    this.DOWN = false;
+    this.RIGTH = false;
+    this.LEFT = false;
 
+  }
   //drawing ship
   drawShip = () => {
     ctx.drawImage(this.imageShip, this.x, this.y, this.w, this.h);
@@ -32,27 +36,6 @@ class Ship {
   drawShipCat = () => {
     this.drawShip();
     this.drawCat();
-  };
-
-  //ship movement up
-  moveUpShip = () => {
-    this.y = this.y - this.speedShip;
-    this.yCat = this.yCat - this.speedCat;
-  };
-  //ship movement down
-  moveDownShip = () => {
-    this.y = this.y + this.speedShip;
-    this.yCat = this.yCat + this.speedCat;
-  };
-  //ship movement Rigth
-  moveRightShip = () => {
-    this.x += this.speedShip;
-    this.xCat += this.speedCat;
-  };
-  //ship movement Left
-  moveLeftShip = () => {
-    this.x -= this.speedShip;
-    this.xCat -= this.speedCat;
   };
 
   parachuteCat = () => {

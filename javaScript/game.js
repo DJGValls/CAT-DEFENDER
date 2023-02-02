@@ -8,11 +8,12 @@ class Game {
     this.background = new Image();
     this.background.src = "./images/spaceBackground.jpg";
 
-    this.shots = [];//arrary to fire a shoot
+    this.shots = []; //arrary to fire a shoot
     this.foesArr = []; //array to keep foes
     this.cityArr = [];
     this.score = 0;
     this.population = 50000;
+
     
   }
 
@@ -24,7 +25,6 @@ class Game {
     this.ship.hCat = 100;
     this.ship.imageCat.src = "./images/endCat.png";
     this.ship.parachuteCat();
-    
 
     setTimeout(function () {
       //console.log("explosion");
@@ -38,78 +38,114 @@ class Game {
   clearCanvas = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
-  
+
   drawBg = () => {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
-  
-  drawScore = ()=> {
+
+  drawScore = () => {
     //let c = document.getElementById("myCanvas");
     //let ctx = c.getContext("2d");
     ctx.font = "20px Tlwg Typewriter";
-    ctx.fillText(`SCORE: ${this.score}` , 1000, 50);
-    ctx.fillStyle = "yellow"
+    ctx.fillText(`SCORE: ${this.score}`, 1000, 50);
+    ctx.fillStyle = "yellow";
     // let grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
     // grd.addColorStop(0, "red");
     // grd.addColorStop(1, "black");
     // Fill with gradient
     //ctx.fillStyle = grd;
     //ctx.fillRect(10, 10, 150, 80);
+  };
+
+  drawPopulation = () => {
+    ctx.font = "20px Tlwg Typewriter";
+    ctx.fillText(`POPULATION: ${population}`, 50, 50);
+    ctx.fillStyle = "yellow";
+  };
+
+  //ship movements
+ 
+  //ship movement up
+  moveUpShip = () => {
+    if (upMove && this.ship.y > 0 && isCatAlive) {      
+      this.ship.y = this.ship.y - this.ship.speedShip;
+      this.ship.yCat = this.ship.yCat - this.ship.speedCat;
+    }
+  };
+  //ship movement down
+  moveDownShip = () => {
+    if (downMove && isCatAlive) {
+      this.ship.y = this.ship.y + this.ship.speedShip;
+      this.ship.yCat = this.ship.yCat + this.ship.speedCat;
+    }
+  };
+  //ship movement Rigth
+  moveRightShip = () => {
+    if (rigthMove && this.ship.x + this.ship.w < canvas.width && isCatAlive) {
+      this.ship.x += this.ship.speedShip;
+      this.ship.xCat += this.ship.speedCat;
+    }
+  };
+  //ship movement Left
+  moveLeftShip = () => {
+    if (leftMove && this.ship.x > 0 && isCatAlive) {
+      this.ship.x -= this.ship.speedShip;
+      this.ship.xCat -= this.ship.speedCat;
+    }
+  };
+
+  moveShip = ()=>{
+    this.moveUpShip();
+    this.moveDownShip();
+    this.moveRightShip();
+    this.moveLeftShip();
   }
 
-  drawPopulation = ()=>{
-    ctx.font = "20px Tlwg Typewriter";
-    ctx.fillText(`POPULATION: ${population}` , 50, 50);
-    ctx.fillStyle = "yellow"
-  }
-  
   hit = (a, b) => {
     if (
       a.x < b.x + b.w &&
       a.x + a.w > b.x &&
       a.y < b.y + b.h &&
       a.h + a.y > b.y
-      ) {
-        
-        return true;
-      }
-    };
-    
-    destroyFoe = (arrayOfFoes, foe) => {
-      foe.image.src = "./images/explosion2.png";
-      setTimeout(function () {
-        //console.log("explosion");
-        arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
-      }, 200);
-      
-    };
-    
-    //colissions
-    
-    checkColissionShipFloor = () => {
-      if (this.ship.y + this.ship.h > canvas.height) {
-        //isGameOn = false;
+    ) {
+      return true;
+    }
+  };
+
+  destroyFoe = (arrayOfFoes, foe) => {
+    foe.image.src = "./images/explosion2.png";
+    setTimeout(function () {
+      //console.log("explosion");
+      arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
+    }, 200);
+  };
+
+  //colissions
+
+  checkColissionShipFloor = () => {
+    if (this.ship.y + this.ship.h > canvas.height) {
+      //isGameOn = false;
+      this.gameOver();
+    }
+  };
+
+  checkColissionShipFoe = () => {
+    this.foesArr.forEach((eachFoe) => {
+      if (this.hit(eachFoe, this.ship)) {
+        //console.log("la nave a chocado");
         this.gameOver();
       }
-    };
-    
-    checkColissionShipFoe = () => {
-      this.foesArr.forEach((eachFoe) => {
-        if (this.hit(eachFoe, this.ship)) {
-          //console.log("la nave a chocado");
-          this.gameOver();
-        }
-      });
-    };
-    
-    checkColissionShotFoe = () => {
-      this.foesArr.forEach((eachFoe) => {
-        this.shots.forEach((eachShot) => {
-          if (this.hit(eachFoe, eachShot)) {
-            //this.foesArr.splice(this.foesArr.indexOf(eachFoe), 1);
-            this.destroyFoe(this.foesArr, eachFoe);
-            this.shots.splice(this.shots.indexOf(eachShot), 1);
-            this.score++
+    });
+  };
+
+  checkColissionShotFoe = () => {
+    this.foesArr.forEach((eachFoe) => {
+      this.shots.forEach((eachShot) => {
+        if (this.hit(eachFoe, eachShot)) {
+          //this.foesArr.splice(this.foesArr.indexOf(eachFoe), 1);
+          this.destroyFoe(this.foesArr, eachFoe);
+          this.shots.splice(this.shots.indexOf(eachShot), 1);
+          this.score++;
           //console.log("nave destruida");
         }
       });
@@ -160,7 +196,11 @@ class Game {
   };
 
   deletefoe = () => {
-    if (this.foesArr[0].y > 800 || this.foesArr[0].x < 0 || this.foesArr[0].y < -100) {
+    if (
+      this.foesArr[0].y > 800 ||
+      this.foesArr[0].x < 0 ||
+      this.foesArr[0].y < -100
+    ) {
       this.foesArr.shift();
     }
   };
@@ -169,6 +209,7 @@ class Game {
     //this.fireOneShot = true;
     let newShot = new Shoot(this.ship.x + 10, this.ship.y);
     this.shots.push(newShot);
+    //blasterSoundDOM.play();
     // console.log(newShot);
     // console.log(this.shots);
   };
@@ -178,7 +219,6 @@ class Game {
       this.shots.shift();
     }
   };
-
 
   //the game loop
   gameLoop = () => {
@@ -192,6 +232,7 @@ class Game {
     //this.spawnFirstCity();
     this.city.moveCity();
     this.spawnCity();
+    this.moveShip();
     this.spawnFoe();
     this.checkColissionShipFloor();
     this.checkColissionShipFoe();
@@ -211,7 +252,6 @@ class Game {
     this.ship.drawShipCat();
     this.drawScore();
     this.drawPopulation();
-
 
     //to draw, move and delete the foe
     this.foesArr.forEach((eachFoe) => {
