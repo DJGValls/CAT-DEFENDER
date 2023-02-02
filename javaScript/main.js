@@ -13,10 +13,16 @@ const musicSoundDOM = document.querySelector("#music");
 const gameoverSoundDOM = document.querySelector("#gameover")
 const blasterSoundDOM = document.querySelector("#blaster");
 const meawSoundDOM = document.querySelector("#meaw");
+const explosionSoundDOM = document.querySelector("#explosion");
+const abductionSoundDOM = document.querySelector("#abduction");
+const screamsSoundDOM = document.querySelector("#screams");
 musicSoundDOM.volume = 0.01;
 gameoverSoundDOM.volume = 0.1;
 blasterSoundDOM.volume = 0.1;
 meawSoundDOM.volume = 0.2;
+explosionSoundDOM.volume = 0.1;
+abductionSoundDOM.volume = 0.1;
+screamsSoundDOM.volume = 0.01;
 
 let game;
 //game = new Game()
@@ -63,6 +69,7 @@ keyDownHandler = (e) => {
   if (e.keyCode == 32) {
     if (!fireShot) {
       game.fire();
+      blasterSoundDOM.load();
       blasterSoundDOM.play();
       fireShot = true;
     }

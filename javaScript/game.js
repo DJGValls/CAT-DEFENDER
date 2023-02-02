@@ -126,6 +126,8 @@ class Game {
     setTimeout(function () {
       //console.log("explosion");
       arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
+      explosionSoundDOM.load();
+      explosionSoundDOM.play();
     }, 200);
   };
 
@@ -134,6 +136,8 @@ class Game {
   checkColissionShipFloor = () => {
     if (this.ship.y + this.ship.h > canvas.height) {
       //isGameOn = false;
+      explosionSoundDOM.load();
+      explosionSoundDOM.play();
       this.gameOver();
     }
   };
@@ -142,6 +146,8 @@ class Game {
     this.foesArr.forEach((eachFoe) => {
       if (this.hit(eachFoe, this.ship)) {
         //console.log("la nave a chocado");
+        explosionSoundDOM.load();
+        explosionSoundDOM.play();
         this.gameOver();
       }
     });
@@ -233,7 +239,6 @@ class Game {
   gameLoop = () => {
     frames++; //frame counter
     this.clearCanvas();
-    
 
     // clean canvas
     console.log("iniciando loop");

@@ -34,6 +34,13 @@ class Foe {
     ctx.drawImage(this.image2, this.x, this.y + 80, this.w, this.h);
   }
 
+  abductionSounds = ()=>{
+    abductionSoundDOM.load();
+    abductionSoundDOM.play();
+    screamsSoundDOM.load();
+    screamsSoundDOM.play();
+  }
+
   //foe movements
   foe1Move = () => {
 
@@ -49,6 +56,7 @@ class Foe {
           this.speed= 2;
           population -= 1000
         }, 2000);
+        this.abductionSounds();
         this.speed = 0;
         this.y = this.y -1;
         this.foeIsDown = false;
@@ -81,6 +89,7 @@ class Foe {
       this.speed= 4;
       population -= 2000
     }, 2000);
+    this.abductionSounds();
     this.speed = 0;
     this.y = this.y -1;
     this.foeIsDown = false;
