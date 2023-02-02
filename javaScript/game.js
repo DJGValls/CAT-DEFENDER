@@ -107,10 +107,10 @@ class Game {
     foe.image.src = "./images/explosion2.png";
     setTimeout(function () {
       //console.log("explosion");
-      arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
       explosionSoundDOM.load();
       explosionSoundDOM.play();
-    }, 200);
+      arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
+    }, 50);
   };
 
   //colissions
