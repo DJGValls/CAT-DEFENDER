@@ -11,8 +11,8 @@ class Game {
     this.shots = []; //arrary to fire a shoot
     this.foesArr = []; //array to keep foes
     this.cityArr = [];
-    this.score = 0;
-    this.population = 50000;
+    // scoreSpanDOM.innerText = 0;
+    // populationSpanDOM.innerText = 50000;
   }
 
   //metods
@@ -42,26 +42,6 @@ class Game {
 
   drawBg = () => {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
-  };
-
-  drawScore = () => {
-    //let c = document.getElementById("myCanvas");
-    //let ctx = c.getContext("2d");
-    ctx.font = "20px Tlwg Typewriter";
-    ctx.fillText(`SCORE: ${this.score}`, 1000, 50);
-    ctx.fillStyle = "yellow";
-    // let grd = ctx.createRadialGradient(75, 50, 5, 90, 60, 100);
-    // grd.addColorStop(0, "red");
-    // grd.addColorStop(1, "black");
-    // Fill with gradient
-    //ctx.fillStyle = grd;
-    //ctx.fillRect(10, 10, 150, 80);
-  };
-
-  drawPopulation = () => {
-    ctx.font = "20px Tlwg Typewriter";
-    ctx.fillText(`POPULATION: ${population}`, 50, 50);
-    ctx.fillStyle = "yellow";
   };
 
   //ship movements
@@ -95,19 +75,21 @@ class Game {
     }
   };
   //ship action of shoot
-  shooting = () => {
-    if (fireShot && isCatAlive) {
-      //this.fire();
-      // blasterSoundDOM.play();
-    }
-  };
+  // shooting = () => {
+  //   // if (fireShot === false && isCatAlive) {
+  //   //   fireShot = true;
+  //   //   game.fire();
+  //   //   blasterSoundDOM.load();
+  //   //   blasterSoundDOM.play();
+  //   // }
+  // };
 
   moveShip = () => {
     this.moveUpShip();
     this.moveDownShip();
     this.moveRightShip();
     this.moveLeftShip();
-    this.shooting();
+    //this.shooting();
   };
 
   hit = (a, b) => {
@@ -136,7 +118,7 @@ class Game {
   checkColissionShipFloor = () => {
     if (this.ship.y + this.ship.h > canvas.height) {
       //isGameOn = false;
-      explosionSoundDOM.load();
+      //explosionSoundDOM.load();
       explosionSoundDOM.play();
       this.gameOver();
     }
@@ -146,7 +128,7 @@ class Game {
     this.foesArr.forEach((eachFoe) => {
       if (this.hit(eachFoe, this.ship)) {
         //console.log("la nave a chocado");
-        explosionSoundDOM.load();
+        //explosionSoundDOM.load();
         explosionSoundDOM.play();
         this.gameOver();
       }
@@ -160,7 +142,7 @@ class Game {
           //this.foesArr.splice(this.foesArr.indexOf(eachFoe), 1);
           this.destroyFoe(this.foesArr, eachFoe);
           this.shots.splice(this.shots.indexOf(eachShot), 1);
-          this.score++;
+          scoreSpanDOM.innerText++;
           //console.log("nave destruida");
         }
       });
@@ -183,11 +165,34 @@ class Game {
     }
   };
 
+  increaseDifficutlt = (speed) => {
+    if (scoreSpanDOM.innerText > 25 && scoreSpanDOM.innerText < 50) {
+      return speed * 2;
+    }
+    if (scoreSpanDOM.innerText > 50 && scoreSpanDOM.innerText < 100) {
+      return speed * 4;
+    }
+    if (scoreSpanDOM.innerText > 100 && scoreSpanDOM.innerText < 150) {
+      return speed * 6;
+    }
+    if (scoreSpanDOM.innerText > 150 && scoreSpanDOM.innerText < 200) {
+      return speed * 8;
+    }
+    return speed;
+  };
+
   spawnFoe = () => {
     if (this.foesArr.length === 0 || frames % 300 === 0) {
       //every 5 seconds
       let randomPosY = Math.random() * -500; // => 0 y -300px
-      let newFoe = new Foe(randomPosY, 1200, 100, 80, 1, "foe1");
+      let newFoe = new Foe(
+        randomPosY,
+        1200,
+        100,
+        80,
+        this.increaseDifficutlt(1),
+        "foe1"
+      );
       this.foesArr.push(newFoe);
       // console.log(newFoe);
       // console.log(this.foesArr);
@@ -195,7 +200,14 @@ class Game {
     if (this.foesArr.length === 0 || frames % 200 === 0) {
       //every 3 seconds
       let randomPosY = Math.random() * 404; // => 0 to 500px
-      let newFoe = new Foe(randomPosY, 1200, 100, 80, 5, "foe2");
+      let newFoe = new Foe(
+        randomPosY,
+        1200,
+        100,
+        80,
+        this.increaseDifficutlt(5),
+        "foe2"
+      );
       this.foesArr.push(newFoe);
       // console.log(newFoe);
       // console.log(this.foesArr);
@@ -203,7 +215,14 @@ class Game {
     if (this.foesArr.length === 0 || frames % 400 === 0) {
       //every 6 seconds
       let randomPosX = Math.random() * 1212; // => 0 to 1200px
-      let newFoe = new Foe(0, randomPosX, 100, 80, 2, "foe3");
+      let newFoe = new Foe(
+        0,
+        randomPosX,
+        100,
+        80,
+        this.increaseDifficutlt(2),
+        "foe3"
+      );
       this.foesArr.push(newFoe);
       // console.log(newFoe);
       // console.log(this.foesArr);
@@ -265,8 +284,6 @@ class Game {
       this.deleteCity();
     });
     this.ship.drawShipCat();
-    this.drawScore();
-    this.drawPopulation();
 
     //to draw, move and delete the foe
     this.foesArr.forEach((eachFoe) => {

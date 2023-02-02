@@ -8,6 +8,10 @@ const ctx = canvas.getContext("2d");
 const startScreenDOM = document.querySelector("#splash-screen"); //inti screen selector
 const gameOverScreenDom = document.querySelector("#gameover-screen");
 const playAgainButtonDOM = document.querySelector("#restart-button");
+const populationDOM = document.querySelector("#population");
+let populationSpanDOM = document.querySelector("#population span");
+const scoreDOM = document.querySelector("#score");
+let scoreSpanDOM = document.querySelector("#score span"); 
 
 const musicSoundDOM = document.querySelector("#music");
 const gameoverSoundDOM = document.querySelector("#gameover")
@@ -26,10 +30,11 @@ screamsSoundDOM.volume = 0.01;
 
 let game;
 //game = new Game()
+populationSpanDOM.innerText = 50000;
+scoreSpanDOM.innerText = 0;
 let frames = 1; //is the frames that pass in the game
 let isGameOn = true;
 let isCatAlive = true;
-let population = 50000;
 let upMove = false;
 let downMove = false;
 let rigthMove = false;
@@ -38,13 +43,14 @@ let fireShot = false;
 
 //GLOBAL FUNCTIONS
 const startGame = () => {
+  populationDOM.style.display = "block"
+  scoreDOM.style.display = "block"
   gameoverSoundDOM.pause();
   musicSoundDOM.load();
   musicSoundDOM.play();
 
   isCatAlive = true;
   isGameOn = true;
-  population = 50000;
   startScreenDOM.style.display = "none";
   gameOverScreenDom.style.display = "none";
   canvas.style.display = "block";
@@ -58,7 +64,7 @@ keyDownHandler = (e) => {
     upMove = true;
   }
   if (e.keyCode == 40) {
-    downMove = true;
+    downMove = true; 
   }
   if (e.keyCode == 39) {
     rigthMove = true;
@@ -68,13 +74,14 @@ keyDownHandler = (e) => {
   }
   if (e.keyCode == 32) {
     if (!fireShot) {
+      fireShot = true;
       game.fire();
       blasterSoundDOM.load();
       blasterSoundDOM.play();
-      fireShot = true;
     }
-    //fireShot = true;
-  } else fireShot = false;
+    
+  } 
+  else fireShot = false;
 };
 
 keyUpHandler = (e) => {
@@ -90,9 +97,9 @@ keyUpHandler = (e) => {
   if (e.keyCode == 37) {
     leftMove = false;
   }
-  // if (e.keyCode == 32) {
-  //   fireShot = false;
-  // }
+  if (e.keyCode == 32) {
+    fireShot = false;
+  }
 };
 
 //ADD EVENT LISTENERS

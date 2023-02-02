@@ -2,10 +2,10 @@ console.log("hello class foe");
 class Foe {
   constructor(yPos, xPos, wPos, hPos, speed, typeOfFoe) {
     this.y = yPos;
-    this.x = xPos; //1200
-    this.w = wPos; //100
-    this.h = hPos; //80
-    this.speed = speed; //2
+    this.x = xPos; 
+    this.w = wPos; 
+    this.h = hPos; 
+    this.speed = speed; 
     this.image = new Image();
     this.image2 = new Image();
     this.image2.src = "./images/abduction.png"
@@ -54,7 +54,7 @@ class Foe {
       if (this.y > 650) {
         setTimeout(() => {
           this.speed= 2;
-          population -= 1000
+          populationSpanDOM.innerText -= 1000
         }, 2000);
         this.abductionSounds();
         this.speed = 0;
@@ -87,7 +87,7 @@ class Foe {
   if (this.y > 650) {
     setTimeout(() => {
       this.speed= 4;
-      population -= 2000
+      populationSpanDOM.innerText -= 2000
     }, 2000);
     this.abductionSounds();
     this.speed = 0;

@@ -1,48 +1,83 @@
+@font-face {
+  font-family: "arcadeFont";
+  src: url(../fonts/ARCADECLASSIC.TTF);
+}
+
 body {
-    margin: 0;
-    background-color: lightblue;
-  }
-  
-  #my-canvas {
-    background-color: lightblue;
-  }
-  
-  #play-button {
-    background-color: red;
-    font-family: 'Courier New', Courier, monospace;
-    color: white;
-    padding: 80px;
-    font-size: 20px;
-    margin-top: 10px;
-    border-radius: 10px; 
-  }
+  margin: 0;
+  background-color: black;
+}
 
-  #restart-button {
-    background-color: red;
-    font-family: 'Courier New', Courier, monospace;
-    color: white;
-    padding: 10px;
-    font-size: 20px;
-    margin-top: 10px;
-    border-radius: 10px; 
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 50px;
-  }
-  
-  #my-canvas{
-    display: none; /*no muestres el elemento en el DOM*/
-  }
-  
-  #gameover-screen{
-    display: none;
-  }
+#my-canvas {
+  background-color: black;
+}
 
-  audio {
-    display: none;
+#play-button {
+  background-color: red;
+  font-family: "arcadeFont";
+  color: white;
+  padding: 60px;
+  font-size: 40px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+#restart-button {
+  background-color: red;
+  font-family: "arcadeFont";
+  color: white;
+  padding: 30px;
+  font-size: 30px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+#my-canvas {
+  display: none; /*no muestres el elemento en el DOM*/
+}
+
+#gameover-screen {
+  display: none;
+}
+
+#population {
+  display: none;
+  font-family: "arcadeFont";
+  color:yellow;
+  font-size: 40px;
+  position: absolute;
+  left: 400px;
+  top: 80px;
+  /* font-weight: bold; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: left; */
+  /* align-items: center;  */
+}
+
+#score {
+  display: none;
+  font-family: "arcadeFont";
+  color:yellow;
+  font-size: 40px;
+  position: absolute;
+  left: 1350px;
+  top: 80px;
+  /* font-weight: bold; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: left; */
+  /* align-items: center;  */
+}
+
+audio {
+  display: none;
 }
