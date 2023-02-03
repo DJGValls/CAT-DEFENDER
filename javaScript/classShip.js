@@ -1,5 +1,3 @@
-console.log("hello class ship");
-
 class Ship {
   constructor() {
     //ship

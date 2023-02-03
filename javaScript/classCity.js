@@ -1,5 +1,3 @@
-console.log("hello city");
-
 class City {
   constructor(xPos, speed) {
     this.x = xPos;

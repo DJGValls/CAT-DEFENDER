@@ -1,21 +1,16 @@
-console.log("hello calss game");
 class Game {
   constructor() {
     this.ship = new Ship();
-    //this.foe = new Foe();
     this.shot = new Shoot();
     this.city = new City(0, 2);
     this.background = new Image();
     this.background.src = "./images/spaceBackground.jpg";
-
     this.shots = []; //arrary to fire a shoot
     this.foesArr = []; //array to keep foes
     this.cityArr = [];
-    // scoreSpanDOM.innerText = 0;
-    // populationSpanDOM.innerText = 50000;
   }
 
-  //metods
+  //METODS
   gameOver = () => {
     musicSoundDOM.pause();
     meawSoundDOM.play();
@@ -28,12 +23,10 @@ class Game {
     this.ship.parachuteCat();
 
     setTimeout(function () {
-      //console.log("explosion");
       isGameOn = false;
       canvas.style.display = "none";
       gameOverScreenDom.style.display = "flex";
     }, 3000);
-    //console.log("game over");
   };
 
   clearCanvas = () => {
@@ -44,54 +37,43 @@ class Game {
     ctx.drawImage(this.background, 0, 0, canvas.width, canvas.height);
   };
 
-  //ship movements
-
-  //ship movement up
+  // * ship movements
+  // - ship movement up
   moveUpShip = () => {
     if (upMove && this.ship.y > 0 && isCatAlive) {
       this.ship.y = this.ship.y - this.ship.speedShip;
       this.ship.yCat = this.ship.yCat - this.ship.speedCat;
     }
   };
-  //ship movement down
+  // - ship movement down
   moveDownShip = () => {
     if (downMove && isCatAlive) {
       this.ship.y = this.ship.y + this.ship.speedShip;
       this.ship.yCat = this.ship.yCat + this.ship.speedCat;
     }
   };
-  //ship movement Rigth
+  // - ship movement Rigth
   moveRightShip = () => {
     if (rigthMove && this.ship.x + this.ship.w < canvas.width && isCatAlive) {
       this.ship.x += this.ship.speedShip;
       this.ship.xCat += this.ship.speedCat;
     }
   };
-  //ship movement Left
+  // - ship movement Left
   moveLeftShip = () => {
     if (leftMove && this.ship.x > 0 && isCatAlive) {
       this.ship.x -= this.ship.speedShip;
       this.ship.xCat -= this.ship.speedCat;
     }
   };
-  //ship action of shoot
-  // shooting = () => {
-  //   // if (fireShot === false && isCatAlive) {
-  //   //   fireShot = true;
-  //   //   game.fire();
-  //   //   blasterSoundDOM.load();
-  //   //   blasterSoundDOM.play();
-  //   // }
-  // };
-
+  // - moveShip
   moveShip = () => {
     this.moveUpShip();
     this.moveDownShip();
     this.moveRightShip();
     this.moveLeftShip();
-    //this.shooting();
   };
-
+  
   hit = (a, b) => {
     if (
       a.x < b.x + b.w &&
@@ -106,19 +88,15 @@ class Game {
   destroyFoe = (arrayOfFoes, foe) => {
     foe.image.src = "./images/explosion2.png";
     setTimeout(function () {
-      //console.log("explosion");
       explosionSoundDOM.load();
       explosionSoundDOM.play();
       arrayOfFoes.splice(arrayOfFoes.indexOf(foe), 1);
     }, 50);
   };
-
-  //colissions
-
+  //
+  //COLISSIONS
   checkColissionShipFloor = () => {
     if (this.ship.y + this.ship.h > canvas.height) {
-      //isGameOn = false;
-      //explosionSoundDOM.load();
       explosionSoundDOM.play();
       this.gameOver();
     }
@@ -127,8 +105,6 @@ class Game {
   checkColissionShipFoe = () => {
     this.foesArr.forEach((eachFoe) => {
       if (this.hit(eachFoe, this.ship)) {
-        //console.log("la nave a chocado");
-        //explosionSoundDOM.load();
         explosionSoundDOM.play();
         this.gameOver();
       }
@@ -139,18 +115,15 @@ class Game {
     this.foesArr.forEach((eachFoe) => {
       this.shots.forEach((eachShot) => {
         if (this.hit(eachFoe, eachShot)) {
-          //this.foesArr.splice(this.foesArr.indexOf(eachFoe), 1);
           this.destroyFoe(this.foesArr, eachFoe);
           this.shots.splice(this.shots.indexOf(eachShot), 1);
           scoreSpanDOM.innerText++;
-          //console.log("nave destruida");
         }
       });
     });
   }; 
-
-  //spawns
-
+  //
+  //SPAWNS
   spawnCity = () => {
     if (this.cityArr.length === 0 || frames % 300 === 0) {
       //every 5 seconds
@@ -194,8 +167,6 @@ class Game {
         "foe1"
       );
       this.foesArr.push(newFoe);
-      // console.log(newFoe);
-      // console.log(this.foesArr);
     }
     if (this.foesArr.length === 0 || frames % 200 === 0) {
       //every 3 seconds
@@ -240,12 +211,9 @@ class Game {
   };
 
   fire = () => {
-    //this.fireOneShot = true;
     let newShot = new Shoot(this.ship.x + 10, this.ship.y);
     this.shots.push(newShot);
-    //blasterSoundDOM.play();
-    // console.log(newShot);
-    // console.log(this.shots);
+    
   };
 
   deleteShot = () => {
@@ -254,7 +222,7 @@ class Game {
     }
   };
 
-  //the game loop
+  //THE GAME LOOP
   gameLoop = () => {
     frames++; //frame counter
     this.clearCanvas();
@@ -263,7 +231,6 @@ class Game {
     console.log("iniciando loop");
 
     // actions
-    //this.spawnFirstCity();
     this.city.moveCity();
     this.spawnCity();
     this.moveShip();
@@ -277,14 +244,12 @@ class Game {
     // draws
     this.drawBg();
     this.city.drawCity();
-    //to draw the city
-    this.cityArr.forEach((eachCity) => {
+      this.cityArr.forEach((eachCity) => {
       eachCity.moveCity();
       eachCity.drawCity();
       this.deleteCity();
     });
     this.ship.drawShipCat();
-
     //to draw, move and delete the foe
     this.foesArr.forEach((eachFoe) => {
       if (eachFoe.typeOfFoe === "foe1") {
