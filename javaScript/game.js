@@ -147,7 +147,7 @@ class Game {
         }
       });
     });
-  };
+  }; 
 
   //spawns
 
@@ -271,7 +271,7 @@ class Game {
     this.checkColissionShipFloor();
     this.checkColissionShipFoe();
     this.checkColissionShotFoe();
-    if (population <= 0) {
+    if (populationSpanDOM <= 0) {
       this.gameOver();
     }
     // draws
