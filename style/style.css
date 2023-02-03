@@ -17,9 +17,9 @@ body {
   font-family: "arcadeFont";
   color: white;
   position: absolute;
-  top: 400px;
+  top: 350px;
   padding: 30px;
-  padding: 60px;
+  padding: 40px;
   font-size: 40px;
   margin-top: 10px;
   border-radius: 10px;
@@ -80,7 +80,8 @@ body {
   font-family: "arcadeFont";
   color:yellow;
   font-size: 25px;
-  position: absolute;
+  position: flex;
+  justify-content: center;
   left: 850px;
   top: 600px;
   
