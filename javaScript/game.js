@@ -14,6 +14,7 @@ class Game {
   gameOver = () => {
     musicSoundDOM.pause();
     meawSoundDOM.play();
+    gameoverSoundDOM.load()
     gameoverSoundDOM.play();
     isCatAlive = false;
     this.ship.imageShip.src = "./images/explosion1.png";

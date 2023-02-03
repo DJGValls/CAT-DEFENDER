@@ -57,6 +57,7 @@ body {
   display: none;
   font-family: "arcadeFont";
   color:yellow;
+  justify-content: flex-start;
   font-size: 40px;
   position: absolute;
   left: 400px;
@@ -68,9 +69,10 @@ body {
   display: none;
   font-family: "arcadeFont";
   color:yellow;
+  justify-content: flex-end;
   font-size: 40px;
   position: absolute;
-  left: 1350px;
+  right: 400px;
   top: 80px;
  
 }
