@@ -271,7 +271,7 @@ class Game {
     this.checkColissionShipFloor();
     this.checkColissionShipFoe();
     this.checkColissionShotFoe();
-    if (populationSpanDOM <= 0) {
+    if (populationSpanDOM.innerText <= 0) {
       this.gameOver();
     }
     // draws
