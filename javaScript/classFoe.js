@@ -87,7 +87,7 @@ class Foe {
   if (this.y > 650) {
     setTimeout(() => {
       this.speed= 4;
-      populationSpanDOM.innerText -= 2000
+      populationSpanDOM.innerText -= 1000
     }, 2000);
     this.abductionSounds();
     this.speed = 0;
